@@ -9,7 +9,7 @@ import java.util.List;
 import static io.restassured.RestAssured.*;
 import static org.hamcrest.Matchers.*;
 
-public class RickAndMortyTest extends BaseClass {
+public class RickAndMorty extends BaseClass {
     static String baseURL = "character";
 
     @Test
@@ -28,30 +28,33 @@ public class RickAndMortyTest extends BaseClass {
         when()
                 .get(baseURL).then().body("info.count", equalTo(26));
     }
+
     @Test
     public void test2() {
-      String url=  when()
+        String url = when()
                 .get(baseURL).then().extract().body().path("info.next");
         System.out.println(url);
     }
+
     @Test
     public void test3() {
-        List<String> url=  when()
-                .get(baseURL).then().extract().jsonPath().getList("results.url",String.class);
+        List<String> url = when()
+                .get(baseURL).then().extract().jsonPath().getList("results.url", String.class);
         System.out.println(url);
     }
-@Test
-@Description("Generating report to temp directory...\n" +
-        "Report successfully generated to C:\\Users\\User\\AppData\\Local\\Temp\\17733142214234190609\\allure-report\n" +
-        "Starting web server...\n")
-@DisplayName("Very impotent test")
-    public void test4(){
-    Characters characters= when()
-            .get(baseURL)
-            .then()
-            .extract()
-            .body()
-            .as(Characters.class);
-    System.out.println(characters.results.get(0).name);
-}
+
+    @Test
+    @Description("Generating report to temp directory...\n" +
+            "Report successfully generated to C:\\Users\\User\\AppData\\Local\\Temp\\17733142214234190609\\allure-report\n" +
+            "Starting web server...\n")
+    @DisplayName("Very impotent test")
+    public void test4() {
+        Characters characters = when()
+                .get(baseURL)
+                .then()
+                .extract()
+                .body()
+                .as(Characters.class);
+        System.out.println(characters.results.get(0).name);
+    }
 }

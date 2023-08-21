@@ -8,7 +8,7 @@ import java.util.List;
 import static io.restassured.RestAssured.when;
 import static org.hamcrest.Matchers.*;
 
-public class TestExchange {
+public class Exchanges {
 
     @Test
     public void test0(){
@@ -34,13 +34,13 @@ public class TestExchange {
     }
     @Test
     public void test2(){
-        List<Exchange> listEx = when()
+        List<ExchangeObject.Exchange> listEx = when()
                 .get("https://bank.gov.ua/NBUStatService/v1/statdirectory/exchange?json")
                 .then()
                 .extract()
                 .jsonPath()
-                .getList(".",Exchange.class); // . all objects
-        for (Exchange ex : listEx) {
+                .getList(".", ExchangeObject.Exchange.class); // . all objects
+        for (ExchangeObject.Exchange ex : listEx) {
             System.out.println(ex.cc);
         }
     }
@@ -60,12 +60,12 @@ public class TestExchange {
     }
     @Test
     public void test5(){
-        Exchange rate= when()
+        ExchangeObject.Exchange rate= when()
                 .get("https://bank.gov.ua/NBUStatService/v1/statdirectory/exchange?valcode=USD&json")
                 .then()
                 .extract()
                 .jsonPath()
-                .getList(".",Exchange.class).get(0);
+                .getList(".", ExchangeObject.Exchange.class).get(0);
 
         System.out.println(rate.rate);
     }
